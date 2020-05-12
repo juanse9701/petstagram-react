@@ -1,21 +1,40 @@
 import React from 'react'
-import { MdFavoriteBorder } from 'react-icons/md'
-import { Img, Article, Button } from './style'
+import { Article, Img, Div, Button } from './style'
+import { useNearScreen } from '../../hooks/useNearScreen'
+import { useLocalstorage } from '../../hooks/useLocalstorage'
+import { FavButton } from '../FavButton'
+import { ToggleLike } from '../../containers/ToggleLike'
+import { Link } from '@reach/router'
 
 const DEFAULT_IMG = 'https://tentulogo.com/wp-content/uploads/mundial-mascotas-Zacumi-2010.jpg'
 
-export const PhotoCard = ({ id, likes = 0, src = DEFAULT_IMG }) => {
-  return (
-    <article>
-      <a href={`/detatil/${id}`}>
-        <Article>
-          <Img src={src} alt='name' />
-        </Article>
-      </a>
+export const PhotoCardComponent = ({ id, likes = 0, src = DEFAULT_IMG }) => {
+  const [like, setLike] = useLocalstorage(`key-${id}`)
+  const { ref, show } = useNearScreen()
 
-      <Button>
-        <MdFavoriteBorder size='32px' />{likes} likes!
-      </Button>
-    </article>
+  return (
+    <Article ref={ref}>
+      {
+        show &&
+          <>
+            <Link to={`/detail/${id}`}>
+              <Div>
+                <Img src={src} alt='name' />
+              </Div>
+            </Link>
+            <ToggleLike>
+              {
+                (toggleLike) => {
+                  const handleClick = () => {
+                    !like && toggleLike({ variables: { input: { id } } })
+                    setLike(!like)
+                  }
+                  return <FavButton liked={like} likes={likes} onClick={handleClick} />
+                }
+              }
+            </ToggleLike>
+          </>
+      }
+    </Article>
   )
 }

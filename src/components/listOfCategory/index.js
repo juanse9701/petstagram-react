@@ -1,29 +1,37 @@
 import React, { useState, useEffect } from 'react'
 import { Category } from '../category'
 import { List, Item } from './style'
-/* import { categories } from '../../../api/db.json' */
-
-const URI = 'https://petgram-server.juanse9701.now.sh/categories'
+import { useFetchCategories } from '../../hooks/fetchCategories'
 
 export const ListOfCategories = () => {
-  const [categories, setCategories] = useState([])
+  const [isFixed, setIsFixed] = useState(false)
+  const { categories, loading } = useFetchCategories()
 
   useEffect(() => {
-    window.fetch(URI)
-      .then(res => res.json())
-      .then(categories => {
-        setCategories(categories)
-      })
-      .catch(() => console.log('error en la peticion'))
-  }, [])
+    const onScroll = (e) => {
+      const newScroll = window.scrollY > 200
+      isFixed !== newScroll && setIsFixed(newScroll)
+    }
+
+    document.addEventListener('scroll', onScroll)
+
+    return () => (document.removeEventListener('scroll', onScroll))
+  }, [isFixed])
+
+  const renderList = (fixed) => (
+    <List fixed={fixed}>
+      {
+        loading
+          ? [1, 2, 3, 4].map(id => <Item key={id}> <Category /> </Item>)
+          : categories.map(value => <Item key={value.id}> <Category {...value} /> </Item>)
+      }
+    </List>
+  )
 
   return (
     <>
-      <List>
-        {
-          categories.map(value => <Item key={value.id}> <Category {...value} /> </Item>)
-        }
-      </List>
+      {renderList()}
+      {isFixed && renderList(true)}
     </>
   )
 }

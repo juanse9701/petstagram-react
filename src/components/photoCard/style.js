@@ -2,6 +2,10 @@ import styled from 'styled-components'
 import { fadeIn } from '../../assets/animations/animations'
 
 export const Article = styled.article`
+    min-height: 200px;
+`
+
+export const Div = styled.div`
     border-radius: 10px;
     display: block;
     overflow: hidden;
@@ -19,14 +23,4 @@ export const Img = styled.img`
     position: absolute;
     top: 0;
     object-fit: cover;
-`
-
-export const Button = styled.button`
-    padding-top: 8px;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    & svg {
-        margin-right: 4px;
-    }
 `
