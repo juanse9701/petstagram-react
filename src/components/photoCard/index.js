@@ -1,15 +1,13 @@
 import React from 'react'
-import { Article, Img, Div, Button } from './style'
+import { Article, Img, Div } from './style'
 import { useNearScreen } from '../../hooks/useNearScreen'
-import { useLocalstorage } from '../../hooks/useLocalstorage'
 import { FavButton } from '../FavButton'
 import { ToggleLike } from '../../containers/ToggleLike'
 import { Link } from '@reach/router'
 
 const DEFAULT_IMG = 'https://tentulogo.com/wp-content/uploads/mundial-mascotas-Zacumi-2010.jpg'
 
-export const PhotoCardComponent = ({ id, likes = 0, src = DEFAULT_IMG }) => {
-  const [like, setLike] = useLocalstorage(`key-${id}`)
+export const PhotoCardComponent = ({ id, likes = 0, liked, src = DEFAULT_IMG }) => {
   const { ref, show } = useNearScreen()
 
   return (
@@ -26,10 +24,9 @@ export const PhotoCardComponent = ({ id, likes = 0, src = DEFAULT_IMG }) => {
               {
                 (toggleLike) => {
                   const handleClick = () => {
-                    !like && toggleLike({ variables: { input: { id } } })
-                    setLike(!like)
+                    toggleLike({ variables: { input: { id } } })
                   }
-                  return <FavButton liked={like} likes={likes} onClick={handleClick} />
+                  return <FavButton liked={liked} likes={likes} onClick={handleClick} />
                 }
               }
             </ToggleLike>

@@ -9,3 +9,23 @@ export const ANONIMOUS_LIKE = gql`
     }
 }
 `
+export const PHOTO_LIKE = gql`
+  mutation likePhoto($input: LikePhoto!) {
+    likePhoto(input: $input) {
+      id
+      liked
+      likes
+    }
+}
+`
+
+export const REGISTER = gql`
+  mutation signup($input: UserCredentials!) {
+    signup(input: $input) 
+  }
+`
+export const LOGIN = gql`
+  mutation login($input: UserCredentials!) {
+    login(input: $input) 
+  }
+`

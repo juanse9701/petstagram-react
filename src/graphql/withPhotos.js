@@ -24,3 +24,11 @@ export const GET_SINGLE_PHOTO = gql`
         }
     }
 `
+export const GET_FAVS = gql`
+    query favs {
+        favs {
+            id
+            src
+        }
+    }
+`

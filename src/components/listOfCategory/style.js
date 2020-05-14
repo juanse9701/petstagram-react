@@ -6,12 +6,13 @@ export const List = styled.ul`
     width: 100%;
     padding: 0;
     ${props => props.fixed && css`
-        width: 400px;
+        max-width: 400px;
         background: #fff;
         padding: 5px;
         border-radius: 60px;
         position: fixed;
         left: 0;
+        right: 0;
         margin: 0 auto;
         top: -20px;
         transform: scale(0.5);

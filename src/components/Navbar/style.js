@@ -5,6 +5,7 @@ import { fadeIn } from '../../assets/animations/animations'
 export const Navbar = styled.nav`
     position: fixed;
     max-width: 500px;
+    margin: 0 auto;
     bottom: 0;
     z-index: 1000;
     left: 0;
