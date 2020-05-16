@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const PageNotFound = () => {
+export default () => {
   return (
     <>
       <h1>404</h1>

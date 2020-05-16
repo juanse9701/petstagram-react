@@ -1,20 +1,21 @@
-import React, { useContext } from 'react'
+import React, { useContext, Suspense, lazy } from 'react'
 import { GlobalStyle } from './assets/GlobalStyle'
 import { Logo } from './components/logo'
 import { Home } from './pages/Home'
 import { Router, Redirect } from '@reach/router'
-import { Detail } from './pages/Detail'
 import { Menu } from './components/Navbar'
-import { Favs } from './pages/Favs'
-import { User } from './pages/User'
-import { NotRegisteredUser } from './pages/NoRegisteredUser'
 import { Context } from './Context'
-import { PageNotFound } from './pages/404Page'
+
+const Favs = lazy(() => import('./pages/Favs'))
+const Detail = lazy(() => import('./pages/Detail'))
+const User = lazy(() => import('./pages/User'))
+const PageNotFound = lazy(() => import('./pages/404Page'))
+const NotRegisteredUser = lazy(() => import('./pages/NoRegisteredUser'))
 
 const App = () => {
-  const { isAuth, removeAuth } = useContext(Context)
+  const { isAuth } = useContext(Context)
   return (
-    <>
+    <Suspense fallback={<div />}>
       <GlobalStyle />
       <Logo />
       <Router>
@@ -22,15 +23,15 @@ const App = () => {
         <Home path='/' />
         <Home path='/pets/:categoryId' />
         <Detail path='/detail/:id' />
-        {isAuth && <Redirect from='/login' to='/' />}
+        {isAuth && <Redirect noThrow from='/login' to='/' />}
         {!isAuth && <NotRegisteredUser path='/login' />}
-        {!isAuth && <Redirect from='/favs' to='/login' />}
-        {!isAuth && <Redirect from='/user' to='/login' />}
+        {!isAuth && <Redirect noThrow from='/favs' to='/login' />}
+        {!isAuth && <Redirect noThrow from='/user' to='/login' />}
         <Favs path='/favs' />
-        <User logout={removeAuth} path='/user' />
+        <User path='/user' />
       </Router>
       <Menu />
-    </>
+    </Suspense>
   )
 }
 

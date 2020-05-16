@@ -5,6 +5,7 @@ export const A = styled(Link)`
     text-decoration: none;
     border-radius: 3px;
     overflow: hidden;
+    height: 100%;
     box-shadow: 0 0 10px rgba(0, 0, 0, .3);
 `
 export const Grid = styled.div`
@@ -16,4 +17,5 @@ export const Grid = styled.div`
 export const Img = styled.img`
     object-fit: cover;
     width: 100%;
+    height: 100%;
 `

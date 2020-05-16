@@ -1,7 +1,7 @@
 import React from 'react'
 import { PhotoCard } from '../containers/PhotoCard'
 
-export const Detail = ({ id }) => (
+export default ({ id }) => (
   <>
     <PhotoCard id={id} />
   </>

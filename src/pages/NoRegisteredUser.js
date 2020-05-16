@@ -4,7 +4,7 @@ import { UserForm } from '../components/UserForm'
 import { Register } from '../containers/RegisterUser'
 import { Login } from '../containers/LoginUser'
 
-export const NotRegisteredUser = () => {
+export default () => {
   const { setAuthValue } = useContext(Context)
   return (
     <>
