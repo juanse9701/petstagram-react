@@ -21,6 +21,7 @@
     "@babel/preset-env": "^7.9.6",
     "@babel/preset-react": "^7.9.4",
     "babel-loader": "^8.1.0",
+    "cypress": "^4.5.0",
     "html-webpack-plugin": "^4.3.0",
     "standard": "^14.3.3",
     "webpack": "^4.43.0",
@@ -34,7 +35,8 @@
     "build": "webpack",
     "lint": "standard",
     "start": "webpack-dev-server --history-api-fallback --mode development --open",
-    "serve:dev": "webpack --mode 'development' && serve dist -s"
+    "serve:dev": "webpack --mode 'development' && serve dist -s",
+    "tets": "cypress open"
   },
   "standard": {
     "ignore": [
